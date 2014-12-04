@@ -72,5 +72,5 @@ function msgLogin(socket, msg) {
 	}
 	socket.emit('message', 'LOGIN FAIL');
 }
-app.listen(8080, '127.0.0.1');
+app.listen(8080);
 console.log('Server running at http://127.0.0.1:8080/');
