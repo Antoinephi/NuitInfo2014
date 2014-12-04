@@ -7,5 +7,5 @@ var dirPath = path.join(__dirname, '../client/');
 
 app.use(express.static(dirPath));
 
-app.listen(1337, '127.0.0.1');
+app.listen(8080, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:1337/');
