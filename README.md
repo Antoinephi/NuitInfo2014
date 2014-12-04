@@ -5,6 +5,11 @@ NuitInfo2014
 
 NodeJs = http://nodejs.org/
 
+------------------Use------------------
+
+In the git folder : node server/app.js
+Server URL : 127.0.0.1:8080
+
 -------------- API Feet ---------------
 
 Page du défi : http://www.nuitdelinfo.com/n2i/defis/21

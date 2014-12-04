@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
- 
+
 	<head>
 		<meta charset="utf-8">
 		<title>NuitDeLinfo2014</title>
@@ -8,15 +8,17 @@
 		<link rel="stylesheet" href="style/main.css" media="screen">
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
- 
+
 	</head>
 
- 
-	<body onload="main()">
-	
-		<div id="debug"></div>
- 
-	</body>
- 
-</html>
 
+	<body onload="main()">
+
+		<div id="debug"></div>
+    <script>
+        var socket = io.connect('http://localhost:8080');
+    </script>
+
+	</body>
+
+</html>

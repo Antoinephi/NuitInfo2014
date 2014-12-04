@@ -1,4 +1,3 @@
-
 function debug(msg) {
 	document.getElementById('debug').innerHTML += msg+'<br />';
 }
@@ -9,7 +8,6 @@ function goto_controller() {
 
 function goto_display() {
 	//document.location.href = "display/";
-	var socket = io.connect('http://localhost:8080');
 }
 
 function checkEvent(event) {
