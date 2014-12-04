@@ -78,7 +78,7 @@ function draw () {
 	
 	context2D.strokeRect(0,0,WIDTH_GAMEBOARD,HEIGHT_GAMEBOARD);
 	
-	console.log('1');
+	//console.log('1');
 	
 	window.requestAnimationFrame(draw);
 }
