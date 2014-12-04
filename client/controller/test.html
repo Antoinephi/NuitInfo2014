@@ -1,0 +1,77 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>Page mobile</title>
+</head>
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css"><body>
+<div id="calibrage"></div>
+<div id="orientation"></div>
+<div id="largeur"></div>
+<div id="hauteur"></div>
+<div class="bloc"></div>
+</body>
+<script>
+	$(function(){
+
+		var glob_a;
+		var glob_b;
+		var glob_g;
+		var cpt = 0;
+		
+		if(window.DeviceOrientationEvent) {			
+		  	window.addEventListener("deviceorientation", process, false);
+		} else {
+		  // Le navigateur ne supporte pas l'événement deviceorientation
+		  alert("toto");
+		}
+
+
+  		$(".bloc").on("touchend", function(){
+  			cpt = 0;
+			window.addEventListener("deviceorientation", function(event){
+				if(cpt == 0){
+		  		glob_a = event.alpha;
+		  		glob_b = event.beta;
+		  		glob_g = event.gamma;
+		  	$("#calibrage").html($("#calibrage").html() + "<ul><li>Alpha : " + glob_a + "</li><li>Beta : " + glob_b + "</li><li>Gamma : " + glob_g + "</li></ul>");
+		  	cpt = 1;
+		  	//alert("calibrage done");
+		  	} }
+				, false);
+		});
+
+		function process(event) {
+		  var alpha = event.alpha;
+		  var beta = event.beta;
+		  var gamma = event.gamma;
+
+
+
+		  if(beta >= glob_b + 40)
+		  		$("#largeur").text("gauche");
+		  else if(beta <= glob_b -40)
+		  		$("#largeur").text("droite");
+		  else
+		  		$("#largeur").text("milieu");
+
+	  	  if((alpha >= 100 + glob_a) && (beta => glob_b + 150))
+		  		$("#hauteur").text("bas");
+		  else if( gamma <= glob_g-10)
+		  		$("#hauteur").text("haut");
+		  else
+		  		$("#hauteur").text("milieu");
+
+
+		  /*if(alpha < 90 || alpha > 110)
+		  		$("#erreur").text("Veuillez passer en mode paysage !");
+		  	else {
+		  		$("#erreur").text("");
+		  	}*/
+
+		  document.getElementById("orientation").innerHTML = "<ul><li>Alpha : " + alpha + "</li><li>Beta : " + beta + "</li><li>Gamma : " + gamma + "</li></ul>"; 
+		}
+
+	});
+</script>
+</html>
