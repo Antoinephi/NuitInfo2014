@@ -3,8 +3,12 @@ var express = require('express');
 var socket = require('socket.io');
 var path = require('path');
 
+var client = require('./client.js');
+
 var server = express();
 var dirPath = path.join(__dirname, '../client/');
+
+
 
 server.use(express.static(dirPath));
 
@@ -21,7 +25,10 @@ io.sockets.on('connection', function(socket) {
 		switch(msgCut[0]) {
 		
 			case 'CONNECT':
-				msgConnect(msgCut);
+				msgConnect(socket, msgCut);
+				break;
+			case 'LOGIN':
+				msgLogin(socket, msgCut);
 				break;
 			default:
 				console.log('Unknow message : '+msgCut[0]);
@@ -30,7 +37,7 @@ io.sockets.on('connection', function(socket) {
 	});
 });
 
-function msgConnect(msg) {
+function msgConnect(socket, msg) {
 
 	switch(msg[1]) {
 		case 'CONTROLLER':
@@ -38,10 +45,21 @@ function msgConnect(msg) {
 			break;
 		case 'DISPLAY':
 			console.log('Display connected');
-			
+			var clt = new client.Client(socket);
 			break;
 	}
 }
 
+function msgLogin(socket, msg) {
+	for(var i = 0; i < client.listClient.length; i++) {
+		if(msg[1] == client.listClient[i].id) {
+			client.listClient[i].addController(socket);
+			client.listClient.splice(i, 1);
+			socket.emit('message', 'LOGIN OK');
+			return;
+		}
+	}
+	socket.emit('message', 'LOGIN FAIL');	
+}
 app.listen(8080, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:8080/');
