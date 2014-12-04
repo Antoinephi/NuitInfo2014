@@ -1,7 +1,17 @@
 NuitInfo2014
 =============
 
------------- API Feet -------------
+------------ Requirements -------------
+
+NodeJs = http://nodejs.org/
+
+------------------Use------------------
+
+In the git folder : node server/app.js
+
+Server URL : 127.0.0.1:8080
+
+-------------- API Feet ---------------
 
 Page du défi : http://www.nuitdelinfo.com/n2i/defis/21
 
@@ -9,7 +19,7 @@ Pages de l'api : http://www.alsacreations.com/tuto/lire/1501-api-device-orientat
 				http://www.alsacreations.com/xmedia/tuto/html5/orientation-acceleration/orientation.html
 
 
------------ Konami Code -------------
+------------ Konami Code --------------
 
 Page du défi : http://www.nuitdelinfo.com/n2i/defis/15
 
