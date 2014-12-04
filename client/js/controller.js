@@ -43,13 +43,21 @@ function controller_sendId() {
 
 
 function calibration(){
-	if(window.DeviceOrientationEvent) {			
-	  	window.addEventListener("deviceorientation", function(event){
-	  		global_alpha = event.alpha;
-	  		global_beta = event.beta;
-	  		global_gamma = event.gamma;
-	  	}, false);
-	} 
+	var cpt = 0;
+	if(window.DeviceOrientationEvent) {	
+		  	window.addEventListener("deviceorientation", function(event){
+		  		if(cpt == 0){		
+			  		global_alpha = event.alpha;
+			  		global_beta = event.beta;
+			  		global_gamma = event.gamma;
+			  		document.getElementById("calibrage").innerHTML = "<ul><li>Alpha : " + global_alpha + "</li><li>Beta : " 
+			  		+ global_beta + "</li><li>Gamma : " + global_gamma + "</li></ul>";
+				  	cpt = 1;
+
+		  		}
+		  	}, false);
+		}
+	
 }
 
 function process(){
@@ -60,6 +68,8 @@ function process(){
 			var alpha = event.alpha;
 			var beta = event.beta;
 			var gamma = event.gamma;
+
+			document.getElementById("orientation").innerHTML = "<ul><li>Alpha : " + alpha + "</li><li>Beta : " + beta + "</li><li>Gamma : " + gamma + "</li></ul>"; 
 
 			  if(beta >= global_beta + 40){
 			  		$("#largeur").text("gauche");

@@ -20,7 +20,7 @@ io.sockets.on('connection', function(socket) {
 	console.log('Client connected !');
 
 	socket.on('message', function (message) {
-
+		console.log(message);
 		var msgCut = message.split(' ');
 
 		switch(msgCut[0]) {
