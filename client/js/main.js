@@ -3,25 +3,33 @@ function debug(msg) {
 	document.getElementById('debug').innerHTML += msg+'<br />'; 
 }
 
+function goto_controller() {
+	document.location.href = "controller/";
+}
+
+function goto_display() {
+	document.location.href = "display/";
+}
+
 function checkEvent(event) {
 	if(event.alpha != null) {
-		debug('Device');
+		window.removeEventListener('deviceorientation', checkEvent);
+		goto_controller();
 	}
 	else {
-		debug('Display');
+		window.removeEventListener('deviceorientation', checkEvent);
+		goto_display();
 	}
-	
-	window.removeEventListener('deviceorientation', checkEvent);
 }
 
 function main() {
 	if(window.DeviceOrientationEvent) {
 		window.addEventListener('deviceorientation', checkEvent, false);
 		var timeout_api = setTimeout(function () {
-			debug('Display');
+			goto_display();
 			window.removeEventListener('deviceorientation', checkEvent);
 		}, 1000);
 	} else {
-		debug('Display');
+		goto_display();
 	}
 }
