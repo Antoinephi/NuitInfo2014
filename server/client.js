@@ -16,6 +16,7 @@ function Client(socket) {
 Client.prototype = {
 	addController: function(socket) {
 		this.controllerSocket = socket;
+		this.socket.emit('message', 'NEW_CONTROLLER');
 		console.log('Add controller to client '+this.id);
 	}
 

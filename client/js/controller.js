@@ -5,7 +5,7 @@ var global_beta;
 var global_gamma;
 
 function main() {
-	socket = io.connect('http://localhost:8080');
+	socket = io.connect('http://'+location.host);
 	socket.emit('message', 'CONNECT CONTROLLER');
 	socket.on('message', function (message) {
 		var msgCut = message.split(' ');
@@ -25,7 +25,6 @@ function main() {
 }
 
 function controller_msgLogin(msg) {
-	console.log('>'+msg[1]);
 	switch(msg[1]) {
 		case 'OK':
 			document.getElementById('main-frame').innerHTML = '';
