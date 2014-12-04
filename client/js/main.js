@@ -3,11 +3,11 @@ function debug(msg) {
 }
 
 function goto_controller() {
-	//document.location.href = "controller/";
+	document.location.href = "controller/";
 }
 
 function goto_display() {
-	//document.location.href = "display/";
+	document.location.href = "display/";
 }
 
 function checkEvent(event) {
