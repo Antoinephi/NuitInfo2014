@@ -2,9 +2,10 @@ var http = require('http');
 var express = require('express');
 var socket = require('socket.io');
 var path = require('path');
-
+var key = require('./generate_key');
 var client = require('./client.js');
 
+key.initKey();
 var server = express();
 var dirPath = path.join(__dirname, '../client/');
 
@@ -17,13 +18,13 @@ var io = socket.listen(app);
 
 io.sockets.on('connection', function(socket) {
 	console.log('Client connected !');
-	
+
 	socket.on('message', function (message) {
 
 		var msgCut = message.split(' ');
-		
+
 		switch(msgCut[0]) {
-		
+
 			case 'CONNECT':
 				msgConnect(socket, msgCut);
 				break;
@@ -33,6 +34,16 @@ io.sockets.on('connection', function(socket) {
 			default:
 				console.log('Unknow message : '+msgCut[0]);
 		}
+
+		socket.on('disconnect', function() {
+			for(var i = 0; i < client.listClient.length; i++) {
+				if(socket == client.listClient[i].socket) {
+					console.log("Display " + client.listClient[i].id + " disconnected ");
+					client.listClient.splice(i, 1);
+					return;
+				}
+			}
+		})
 
 	});
 });
@@ -59,7 +70,7 @@ function msgLogin(socket, msg) {
 			return;
 		}
 	}
-	socket.emit('message', 'LOGIN FAIL');	
+	socket.emit('message', 'LOGIN FAIL');
 }
 app.listen(8080, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:8080/');
