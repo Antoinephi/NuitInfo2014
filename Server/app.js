@@ -1,11 +1,11 @@
 var express = require('express');
-var app = express();
+var fs = require('fs');
+var path = require('path');
 
-app.get('/', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('<h1>Hello World</h1>');
-  res.end();
-});
+var app = express();
+var dirPath = path.join(__dirname, '../client/');
+
+app.use(express.static(dirPath));
 
 app.listen(1337, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:1337/');
