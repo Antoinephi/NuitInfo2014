@@ -16,6 +16,10 @@ var context2D;
 
 var item = 5;
 
+var docImg;
+var boxImg;
+var seekImg;
+
 var board = null;
 var socket = null;
 
@@ -50,7 +54,12 @@ function main() {
 				HEIGHT_GAMEBOARD = parseInt(msgCut[2] * SIZE_CASE);
 				width = parseInt(msgCut[1]);
 				height = parseInt(msgCut[2]);
-				console.log(width);
+				docImg = new Image();
+				docImg.src = '../img/Dr_Paper_Mario_by_Frobie_Mangaka.png';	
+				boxImg = new Image();
+				boxImg.src = '../img/FreeArt_boxes1-670x250.png';
+				seekImg = new Image();
+				seekImg.src = '../img/Boy1-Zombie.png';
 				board = new Array(width);
 				for(var i = 0; i < width; i++) {
 					board[i] = new Array(height);
@@ -98,11 +107,13 @@ function draw () {
 	for(var i = 0; i < width; i++) {
 		for(var j = 0; j < height; j++) {
 			if(board[i][j] == 'S') {
-				context2D.strokeText("S", i * SIZE_CASE, (j + 1) * SIZE_CASE);
+				context2D.drawImage(boxImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE	);
 			} else if(board[i][j] == 'D') {
-				context2D.strokeText("D", i * SIZE_CASE, (j + 1) * SIZE_CASE);
+				context2D.drawImage(docImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
+			//	context2D.strokeText("D", i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			} else if(board[i][j] != '0') {
-				context2D.strokeText(board[i][j], i * SIZE_CASE, (j + 1) * SIZE_CASE);
+			
+				context2D.drawImage(seekImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			}
 		}
 	}

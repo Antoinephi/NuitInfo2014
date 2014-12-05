@@ -27,7 +27,15 @@ io.sockets.on('connection', function(socket) {
 				msgConnect(socket, msgCut);
 				break;
 			case 'LOGIN':
-				msgLogin(socket, msgCut);
+				if(msgCut[1] == "_debug") {
+					client.listClient[0].socket.emit('message', 'LOGIN OK');
+					client.listClient[0].socket.emit('message', 'STARTGAME');
+					client.listClient[0].initGame();
+					client.listClient[0].sendGame();
+				}
+				else
+					msgLogin(socket, msgCut);
+				
 				break;
 			default:
 				console.log('Unknow message : '+msgCut[0]);
