@@ -9,8 +9,6 @@ key.initKey();
 var server = express();
 var dirPath = path.join(__dirname, '../client/');
 
-
-
 server.use(express.static(dirPath));
 
 var app = http.createServer(server);

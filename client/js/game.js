@@ -5,8 +5,6 @@ var HEIGHT_GAMEBOARD;
 
 var WIDTH_HUD;
 var HEIGHT_HUD;
-var width;
-var height;
 
 var WIDTH_ITEM = 100;
 var HEIGHT_ITEM = 10;
@@ -19,8 +17,11 @@ var item = 5;
 var board = null;
 var socket = null;
 
-function main() {
-	socket = io.connect('http://'+location.host);
+function run (sck) {
+	canvas = document.getElementById('canvas');
+	context2D = canvas.getContext('2d');
+
+	socket = sck;
 	socket.emit('message', 'CONNECT DISPLAY');
 
 	socket.on('message', function (message) {
@@ -28,41 +29,24 @@ function main() {
 
 		switch(msgCut[0]) {
 
-			case 'SENDID':
-				if(document.getElementById('key_span') != null)
-					document.getElementById('key_span').innerHTML = msgCut[1];
-				break;
-
-			case 'NEW_CONTROLLER':
-				document.getElementById('main-frame').innerHTML = '';
-				break;
-
-			case 'STARTGAME':
-				document.getElementById('main-frame').innerHTML = '<canvas id="canvas" width="600" height="500"></canvas>';
-				run(socket);
-				break;
-
 			case 'INITMAP':
 				/* define differents areas */
 				WIDTH_HUD = 100;
-				HEIGHT_HUD = parseInt(msgCut[2] * SIZE_CASE);
-				WIDTH_GAMEBOARD = parseInt(msgCut[1] * SIZE_CASE);
-				HEIGHT_GAMEBOARD = parseInt(msgCut[2] * SIZE_CASE);
-				width = parseInt(msgCut[1]);
-				height = parseInt(msgCut[2]);
-				console.log(width);
-				board = new Array(width);
-				for(var i = 0; i < width; i++) {
-					board[i] = new Array(height);
+				HEIGHT_HUD = msgCut[2];
+				WIDTH_GAMEBOARD = msgCut[1] - WIDTH_HUD;
+				HEIGHT_GAMEBOARD = msgCut[2];
+				board = new Array(WIDTH_GAMEBOARD);
+				for(var i = 0; i < WIDTH_GAMEBOARD; i++) {
+					board[i] = new Array(HEIGHT_GAMEBOARD);
 				}
 				console.log('init');
 				window.requestAnimationFrame(draw);
 				break;
 
 			case 'SENDMAP':
-				for(var i = 0; i < width; i++) {
-					for(var j = 0; j < height; j++) {
-						board[i][j] = msgCut[1 + i * height + j];
+				for(var i = 0; i < WIDTH_GAMEBOARD; i++) {
+					for(var j = 0; j < HEIGHT_GAMEBOARD; j++) {
+						board[i][j] = msgCut[1 + i * HEIGHT_GAMEBOARD + j];
 					}
 				}
 				break;
@@ -71,14 +55,6 @@ function main() {
 				console.log('Unknow message : '+msgCut[0]);
 		}
 	});
-}
-
-/* GAME.JS */
-
-function run () {
-
-	canvas = document.getElementById('canvas');
-	context2D = canvas.getContext('2d');
 
 }
 
@@ -94,14 +70,14 @@ function draw () {
 
 	context2D.font = "18px sans-serif";
 
-	for(var i = 0; i < width; i++) {
-		for(var j = 0; j < height; j++) {
+	for(var i = 0; i < WIDTH_GAMEBOARD; i++) {
+		for(var j = 0; j < HEIGHT_GAMEBOARD; j++) {
+			console.log(board[i][j]);
 			if(board[i][j] == 'S') {
 				context2D.strokeText("S", i * SIZE_CASE, j * SIZE_CASE);
 			} else if(board[i][j] == 'D') {
 				context2D.strokeText("D", i * SIZE_CASE, j * SIZE_CASE);
-			} else if(board[i][j] != '0') {
-				console.log(board[i][j]);
+			} else if(parseInt(board[i][j]) > 0) {
 				context2D.strokeText(board[i][j], i * SIZE_CASE, j * SIZE_CASE);
 			}
 		}
