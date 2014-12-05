@@ -14,12 +14,13 @@ var HEIGHT_ITEM = 10;
 var canvas;
 var context2D;
 
-var item = 5;
+var item = 2;
+var score = 0;
 
 var docImg;
 var boxImg;
-var seekImg;
-var niddleImg;
+var sickImg;
+var needleImg;
 
 var board = null;
 var socket = null;
@@ -56,18 +57,17 @@ function main() {
 				width = parseInt(msgCut[1]);
 				height = parseInt(msgCut[2]);
 				docImg = new Image();
-				docImg.src = '../img/Dr_Paper_Mario_by_Frobie_Mangaka.png';	
+				docImg.src = '../img/Dr_Paper_Mario_by_Frobie_Mangaka.png';
 				boxImg = new Image();
 				boxImg.src = '../img/FreeArt_boxes1-670x250.png';
-				seekImg = new Image();
-				seekImg.src = '../img/Boy1-Zombie.png';
-				niddleImg = new Image();
-				niddleImg.src = '../img/niddle.jpg';
+				sickImg = new Image();
+				sickImg.src = '../img/Boy1-Zombie.png';
+				needleImg = new Image();
+				needleImg.src = '../img/niddle.jpg';
 				board = new Array(width);
 				for(var i = 0; i < width; i++) {
 					board[i] = new Array(height);
 				}
-				console.log('init');
 				window.requestAnimationFrame(draw);
 				break;
 
@@ -75,13 +75,20 @@ function main() {
 				for(var i = 0; i < width; i++) {
 					for(var j = 0; j < height; j++) {
 						board[i][j] = msgCut[1 + i * height + j];
-						if(board[i][j] == 'D')
-							console.log(i+', '+j);
 					}
 				}
 				break;
 			case 'TIMER':
 				document.getElementById('timer').innerHTML = msgCut[1]+"s";
+				break;
+
+			case 'SENDDOC':
+				item = msgCut[1];
+				score = msgCut[2];
+				break;
+
+			case 'GAMEOVER':
+				document.location.href = "./gameOver.html";
 				break;
 			default:
 				console.log('Unknow message : '+msgCut[0]);
@@ -113,13 +120,13 @@ function draw () {
 	for(var i = 0; i < width; i++) {
 		for(var j = 0; j < height; j++) {
 			if(board[i][j] == 'S') {
-				context2D.drawImage(boxImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE	);
+				context2D.drawImage(sickImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			} else if(board[i][j] == 'D') {
 				context2D.drawImage(docImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			//	context2D.strokeText("D", i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			} else if(board[i][j] != '0') {
-			
-				context2D.drawImage(seekImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
+
+				context2D.drawImage(boxImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			}
 		}
 	}
@@ -153,7 +160,7 @@ function drawHUD() {
 		context2D.fillRect(WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
 		context2D.fillStyle = 'black';
 		context2D.strokeRect(WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
-	*/	context2D.drawImage(niddleImg, WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
+	*/	context2D.drawImage(needleImg, WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
 	}
 
 	context2D.fillStyle = 'black';

@@ -42,7 +42,7 @@ Board.prototype = {
       x = Math.floor(Math.random() * this.width);
       y = Math.floor(Math.random() * this.height);
     }
-    this.listEntity[x][y] = nbSeringue;
+    this.listEntity[x][y] = '' + nbSeringue;
   },
   addPerson: function() {
     var x = Math.floor(Math.random() * this.width);
@@ -54,16 +54,17 @@ Board.prototype = {
     this.listEntity[x][y] = 'S';
   },
   moveDoctor: function(x, y) {
-    if(this.doctor.x + x < 0 || this.doctor.x + x >= this.width || this.doctor.y + y < 0 || this.doctor.y + y>= this.height)
+    if(this.doctor.x + x < 0 || this.doctor.x + x >= this.width || this.doctor.y + y < 0 || this.doctor.y + y >= this.height)
       return;
     this.listEntity[this.doctor.x][this.doctor.y] = '0';
     this.doctor.move(x, y);
-    if(this.listEntity[this.doctor.x, this.doctor.y] != '0') {
-      this.doctor.addSeringue(parseInt(this.listEntity[this.doctor.x, this.doctor.y]));
-    } else if(this.listEntity[this.doctor.x, this.doctor.y] == 'S') {
+    console.log(this.listEntity[this.doctor.x][this.doctor.y]);
+    if(this.listEntity[this.doctor.x][this.doctor.y] == 'S') {
       this.doctor.savePerson();
+    } else if(parseInt(this.listEntity[this.doctor.x][this.doctor.y]) > 0) {
+      this.doctor.addSeringue(parseInt(this.listEntity[this.doctor.x][this.doctor.y]));
     }
-    this.listEntity[this.doctor.x][this.doctor.y] = 'D';
+      this.listEntity[this.doctor.x][this.doctor.y] = 'D';
   }
 }
 

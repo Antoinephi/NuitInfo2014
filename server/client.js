@@ -57,7 +57,7 @@ Client.prototype = {
 					clientTmp.freeMove = false;
 					setTimeout(function() {
 						clientTmp.freeMove = true;
-					}, 250);
+					}, 1000);
 					clientTmp.board.moveDoctor(x, y);
 					clientTmp.sendGame();
 					break;
@@ -68,10 +68,11 @@ Client.prototype = {
 		this.socket.emit('message', 'NEW_CONTROLLER');
 		this.socket.emit('message', 'STARTGAME');
 		this.board.init();
-		for(var i = 0; i < 10; i++) {
+		for(var i = 0; i < 5; i++) {
 			this.board.addPerson();
-			this.board.dropSeringue(5);
+			this.board.dropSeringue(2);
 		}
+		console.log(this.board);
 		this.initGame()
 		this.sendGame();
 		console.log('Add controller to client '+this.id);
@@ -81,12 +82,12 @@ Client.prototype = {
 		this.socket.emit('message', cmdName);
 		console.log("init game");
 		this.decreaseTimer(this);
-		
 	},
 	sendGame: function() {
 		var cmdName = this.board.getCmdMap();
 		this.socket.emit('message', cmdName);
 		cmdName = this.doctor.getCmdDoc();
+		console.log(cmdName);
 		this.socket.emit('message', cmdName);
 		console.log("send game");
 	},
