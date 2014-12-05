@@ -43,7 +43,7 @@ function main() {
 				break;
 
 			case 'STARTGAME':
-				document.getElementById('main-frame').innerHTML = '<canvas id="canvas" width="600" height="500"></canvas>';
+				document.getElementById('main-frame').innerHTML = '<h3>Timer : <span id="timer"></span></h3><canvas id="canvas" width="600" height="500"></canvas>';
 				run(socket);
 				break;
 
@@ -79,6 +79,9 @@ function main() {
 							console.log(i+', '+j);
 					}
 				}
+				break;
+			case 'TIMER':
+				document.getElementById('timer').innerHTML = msgCut[1]+"s";
 				break;
 			default:
 				console.log('Unknow message : '+msgCut[0]);

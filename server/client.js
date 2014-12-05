@@ -12,6 +12,7 @@ function Client(socket) {
 	this.controllerSocket = null;
 	this.doctor = new doctor.Doc();
 	this.board = new board.Board(this.doctor);
+	this.timer = 120;
 
 	listClient.push(this);
 
@@ -79,6 +80,8 @@ Client.prototype = {
 		var cmdName = this.board.getInitMap();
 		this.socket.emit('message', cmdName);
 		console.log("init game");
+		this.decreaseTimer(this);
+		
 	},
 	sendGame: function() {
 		var cmdName = this.board.getCmdMap();
@@ -86,7 +89,21 @@ Client.prototype = {
 		cmdName = this.doctor.getCmdDoc();
 		this.socket.emit('message', cmdName);
 		console.log("send game");
+	},
+	decreaseTimer: function(clientT) {
+		if(clientT.timer == 0) {
+			clientT.socket.emit('message', "GAMEOVER");
+		}
+		else {
+			clientT.timer--;
+			clientT.socket.emit('message', "TIMER "+clientT.timer);
+			setTimeout(function() {
+				clientT.decreaseTimer(clientT);
+				}, 1000);
+				
+		}
 	}
+	
 }
 
 module.exports.Client = Client;
