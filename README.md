@@ -10,7 +10,7 @@ NodeJs = http://nodejs.org/
 Commande bash à executer dans le dossier du dépot : node server/app.js
 URL du serveur : 127.0.0.1:8080
 
-Une plateforme doté d'un accéléromètre pour profiter pleinement de l'application
+Une plateforme dotée d'un accéléromètre pour profiter pleinement de l'application
 Un identifiant sera donné sur la plateforme sans accéléromètre qu'il faudra saisir sur la plateforme avec accéléromètre
 
 Le jeu consiste à soigner les individus malades à l'aide des seringues que possède le joueur.
