@@ -67,9 +67,9 @@ Client.prototype = {
 		this.socket.emit('message', 'NEW_CONTROLLER');
 		this.socket.emit('message', 'STARTGAME');
 		this.board.init();
-		for(var i = 0; i < 10; i++) {
+		for(var i = 0; i < 5; i++) {
 			this.board.addPerson();
-			this.board.dropSeringue(5);
+			this.board.dropSeringue(2);
 		}
 		console.log(this.board);
 		this.initGame()
