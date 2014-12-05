@@ -70,9 +70,10 @@ Client.prototype = {
 		this.board.init();
 		for(var i = 0; i < 5; i++) {
 			this.board.addPerson();
+		}
+		for(var i = 0; i < 3; i++) {
 			this.board.dropSeringue(2);
 		}
-		console.log(this.board);
 		this.initGame()
 		this.sendGame();
 		console.log('Add controller to client '+this.id);
@@ -87,17 +88,23 @@ Client.prototype = {
 		var cmdName = this.board.getCmdMap();
 		this.socket.emit('message', cmdName);
 		cmdName = this.doctor.getCmdDoc();
-		console.log(cmdName);
 		this.socket.emit('message', cmdName);
 		console.log("send game");
 	},
 	decreaseTimer: function(clientT) {
 		if(clientT.timer == 0) {
-			clientT.socket.emit('message', "GAMEOVER");
+			clientT.socket.emit('message', "GAMEOVER "+clientT.doctor.score);
 		}
 		else {
+			clientT.doctor.score++;
 			clientT.timer--;
+			if(clientT.timer % 20 == 0) {
+				clientT.board.addPerson();
+				clientT.board.addPerson();
+				clientT.board.dropSeringue(2);
+			}
 			clientT.socket.emit('message', "TIMER "+clientT.timer);
+			clientT.socket.emit('message', "SCORE "+clientT.doctor.score);
 			setTimeout(function() {
 				clientT.decreaseTimer(clientT);
 				}, 1000);

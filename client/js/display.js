@@ -44,7 +44,7 @@ function main() {
 				break;
 
 			case 'STARTGAME':
-				document.getElementById('main-frame').innerHTML = '<h3>Timer : <span id="timer"></span></h3><canvas id="canvas" width="600" height="500"></canvas>';
+				document.getElementById('main-frame').innerHTML = '<h3>Timer : <span id="timer"></span> | Score : <span id="score"></span></h3><canvas id="canvas" width="600" height="500"></canvas>';
 				run(socket);
 				break;
 
@@ -81,14 +81,16 @@ function main() {
 			case 'TIMER':
 				document.getElementById('timer').innerHTML = msgCut[1]+"s";
 				break;
-
+			case 'SCORE':
+				document.getElementById('score').innerHTML = msgCut[1];
+				break;
 			case 'SENDDOC':
 				item = msgCut[1];
 				score = msgCut[2];
 				break;
 
 			case 'GAMEOVER':
-				document.location.href = "./gameOver.html";
+				document.getElementById('main-frame').innerHTML = "<h1>GAME OVER</h1><br /><h3>Score : "+msgCut[1]+"</h3>";
 				break;
 			default:
 				console.log('Unknow message : '+msgCut[0]);

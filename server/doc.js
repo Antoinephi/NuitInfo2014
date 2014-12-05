@@ -18,12 +18,12 @@ Doc.prototype = {
   },
   savePerson: function() {
     this.useSeringue();
-    this.score++;
+    this.score += 50;
   },
   getCmdDoc: function() {
     var cmdName;
     if(this.nbSeringue <= 0) {
-      cmdName = 'GAMEOVER';
+      cmdName = 'GAMEOVER '+this.score;
     } else {
       cmdName = 'SENDDOC ' + this.nbSeringue + ' ' + this.score;
     }
