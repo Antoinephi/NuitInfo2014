@@ -19,6 +19,7 @@ var item = 5;
 var docImg;
 var boxImg;
 var seekImg;
+var niddleImg;
 
 var board = null;
 var socket = null;
@@ -60,6 +61,8 @@ function main() {
 				boxImg.src = '../img/FreeArt_boxes1-670x250.png';
 				seekImg = new Image();
 				seekImg.src = '../img/Boy1-Zombie.png';
+				niddleImg = new Image();
+				niddleImg.src = '../img/niddle.jpg';
 				board = new Array(width);
 				for(var i = 0; i < width; i++) {
 					board[i] = new Array(height);
@@ -143,10 +146,11 @@ function drawHUD() {
 
 	context2D.fillStyle = 'green';
 	for (var i = 0 ; i <= item ; i++) {
-		context2D.fillStyle = 'green';
+		/*context2D.fillStyle = 'green';
 		context2D.fillRect(WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
 		context2D.fillStyle = 'black';
 		context2D.strokeRect(WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
+	*/	context2D.drawImage(niddleImg, WIDTH_GAMEBOARD,HEIGHT_HUD-(i*HEIGHT_ITEM),WIDTH_ITEM,HEIGHT_ITEM);
 	}
 
 	context2D.fillStyle = 'black';
