@@ -4,6 +4,7 @@ var doctor = require('./doc')
 var listClient = [];
 
 function Client(socket) {
+	this.freeMove = true;
 	this.socket = socket;
 	key.nextKey();
 	this.id = key.getKey();
@@ -20,6 +21,49 @@ function Client(socket) {
 Client.prototype = {
 	addController: function(socket) {
 		this.controllerSocket = socket;
+		var clientTmp = this;
+		this.controllerSocket.on("message", function(message){
+
+			var msgCut = message.split(' ');
+			var x,y;
+			var old_x, old_y;
+
+			switch(msgCut[0]) {
+
+				case 'DIRECTION':
+					if(!clientTmp.freeMove)
+						return;
+					switch(msgCut[1]){
+						case 'NORTH':
+							x = 0;
+							y = -1;
+							break;
+						case 'EAST':
+							x = 1;
+							y = 0;
+							break;
+						case 'SOUTH':
+							x = 0;
+							y = 1;
+							break;
+						case 'WEST':
+							x = -1;
+							y = 0;
+							break;
+						default:
+							return;
+					}
+					clientTmp.freeMove = false;
+					setTimeout(function() {
+						clientTmp.freeMove = true;
+					}, 250);
+					clientTmp.board.moveDoctor(x, y);
+					clientTmp.sendGame();
+					break;
+				default:
+					console.log('Unknow message : '+msgCut[0]);
+			}
+		})
 		this.socket.emit('message', 'NEW_CONTROLLER');
 		this.socket.emit('message', 'STARTGAME');
 		this.board.init();

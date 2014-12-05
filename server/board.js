@@ -54,14 +54,16 @@ Board.prototype = {
     this.listEntity[x][y] = 'S';
   },
   moveDoctor: function(x, y) {
-    this.listEntity[this.doctor.x, this.doctor.y] = '0';
+    if(this.doctor.x + x < 0 || this.doctor.x + x >= this.width || this.doctor.y + y < 0 || this.doctor.y + y>= this.height)
+      return;
+    this.listEntity[this.doctor.x][this.doctor.y] = '0';
     this.doctor.move(x, y);
-    if(parseInt(this.listEntity[this.doctor.x, this.doctor.y]) > 0) {
+    if(this.listEntity[this.doctor.x, this.doctor.y] != '0') {
       this.doctor.addSeringue(parseInt(this.listEntity[this.doctor.x, this.doctor.y]));
     } else if(this.listEntity[this.doctor.x, this.doctor.y] == 'S') {
       this.doctor.savePerson();
     }
-    this.listEntity[this.doctor.x, this.doctor.y] = 'D';
+    this.listEntity[this.doctor.x][this.doctor.y] = 'D';
   }
 }
 

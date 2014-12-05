@@ -68,11 +68,25 @@ function process(){
 			var alpha = event.alpha;
 			var beta = event.beta;
 			var gamma = event.gamma;
+
+							if(event.beta <= 10) {
+								socket.emit('message', 'DIRECTION NORTH');  			
+					  		}
+					  		else if(event.beta >= 35) {
+					  			socket.emit('message', 'DIRECTION SOUTH');
+					  		}
+					  		else if(event.gamma >= 20) {
+					  			socket.emit('message', 'DIRECTION EAST');
+					  		}
+					  		else if(event.gamma <= 20) {
+					  			socket.emit('message', 'DIRECTION WEST');
+					  		}
+			/*
 			window.addEventListener("touchend", function(){
 				var cpt = 0;
 				if(window.DeviceOrientationEvent) {	
 					  	window.addEventListener("deviceorientation", function(event){
-					  		if(cpt == 0){		
+					  		/*if(cpt == 0){		
 						  		global_alpha = event.alpha;
 						  		global_beta = event.beta;
 						  		global_gamma = event.gamma;
@@ -81,19 +95,31 @@ function process(){
 							  	cpt = 1;
 
 					  		}
+					  		if(event.beta <= 10) {
+								socket.emit('message', 'DIRECTION NORTH');  			
+					  		}
+					  		else if(event.beta >= 35) {
+					  			socket.emit('message', 'DIRECTION SOUTH');
+					  		}
+					  		else if(event.gamma >= 20) {
+					  			socket.emit('message', 'DIRECTION EAST');
+					  		}
+					  		else if(event.gamma <= 20) {
+					  			socket.emit('message', 'DIRECTION WEST');
+					  		}
 					  	}, false);
 		}
-			});
+			});*/
 			document.getElementById("orientation").innerHTML = "<ul><li>Alpha : " + alpha + "</li><li>Beta : " + beta + "</li><li>Gamma : " + gamma + "</li></ul>"; 
-
+			/*
 			  if(beta >= global_beta + 40){
 			  		$("#largeur").text("gauche");
 			  		$(".display-command").attr('id', 'W');
-			  		socket.emit('message', 'DIRECTION LEFT');
+			  		socket.emit('message', 'DIRECTION WEST');
 			  }  else if(beta <= global_beta -40) {
 			  		$(".display-command").attr('id', 'E');
 			  		$("#largeur").text("droite");
-			  		socket.emit('message', 'DIRECTION RIGHT');
+			  		socket.emit('message', 'DIRECTION EAST');
 			  } else { 
 			  		$("#largeur").text("milieu");
 			  		socket.emit('message', 'DIRECTION MIDDLE-H');
@@ -101,20 +127,20 @@ function process(){
 
 		  	  if((alpha >= 100 + global_alpha) && (beta >= global_beta + 150)){
 			  		$("#hauteur").text("bas");
-			  		socket.emit('message', 'DIRECTION BOTTOM');
+			  		socket.emit('message', 'DIRECTION SOUTH');
 			  		$(".display-command").attr('id', 'S');
 
 
 			  } else if( gamma <= global_gamma-10) {
 			  		$("#hauteur").text("haut");
-			  		socket.emit('message', 'DIRECTION TOP');
+			  		socket.emit('message', 'DIRECTION NORTH');
 			  		$(".display-command").attr('id', 'N');
 
 
 			  } else {
 			  		$("#hauteur").text("milieu");
 			  		socket.emit('message', 'DIRECTION MIDDLE-V');
-			  }
+			  }*/
 		}, false);
 	}
 }

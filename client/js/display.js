@@ -63,10 +63,11 @@ function main() {
 				for(var i = 0; i < width; i++) {
 					for(var j = 0; j < height; j++) {
 						board[i][j] = msgCut[1 + i * height + j];
+						if(board[i][j] == 'D')
+							console.log(i+', '+j);
 					}
 				}
 				break;
-
 			default:
 				console.log('Unknow message : '+msgCut[0]);
 		}
@@ -97,11 +98,11 @@ function draw () {
 	for(var i = 0; i < width; i++) {
 		for(var j = 0; j < height; j++) {
 			if(board[i][j] == 'S') {
-				context2D.strokeText("S", i * SIZE_CASE, j * SIZE_CASE);
+				context2D.strokeText("S", i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			} else if(board[i][j] == 'D') {
-				context2D.strokeText("D", i * SIZE_CASE, j * SIZE_CASE);
+				context2D.strokeText("D", i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			} else if(board[i][j] != '0') {
-				context2D.strokeText(board[i][j], i * SIZE_CASE, j * SIZE_CASE);
+				context2D.strokeText(board[i][j], i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			}
 		}
 	}
