@@ -15,6 +15,7 @@ var canvas;
 var context2D;
 
 var item = 5;
+var score = 0;
 
 var docImg;
 var boxImg;
@@ -56,7 +57,7 @@ function main() {
 				width = parseInt(msgCut[1]);
 				height = parseInt(msgCut[2]);
 				docImg = new Image();
-				docImg.src = '../img/Dr_Paper_Mario_by_Frobie_Mangaka.png';	
+				docImg.src = '../img/Dr_Paper_Mario_by_Frobie_Mangaka.png';
 				boxImg = new Image();
 				boxImg.src = '../img/FreeArt_boxes1-670x250.png';
 				seekImg = new Image();
@@ -67,7 +68,6 @@ function main() {
 				for(var i = 0; i < width; i++) {
 					board[i] = new Array(height);
 				}
-				console.log('init');
 				window.requestAnimationFrame(draw);
 				break;
 
@@ -75,11 +75,16 @@ function main() {
 				for(var i = 0; i < width; i++) {
 					for(var j = 0; j < height; j++) {
 						board[i][j] = msgCut[1 + i * height + j];
-						if(board[i][j] == 'D')
-							console.log(i+', '+j);
 					}
 				}
 				break;
+
+			case 'SENDDOC':
+				console.log(msgCut[1]);
+				item = msgCut[1];
+				score = msgCut[2];
+				break;
+
 			default:
 				console.log('Unknow message : '+msgCut[0]);
 		}
@@ -115,7 +120,7 @@ function draw () {
 				context2D.drawImage(docImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			//	context2D.strokeText("D", i * SIZE_CASE, (j + 1) * SIZE_CASE);
 			} else if(board[i][j] != '0') {
-			
+
 				context2D.drawImage(seekImg, i * SIZE_CASE, (j + 1) * SIZE_CASE, SIZE_CASE,SIZE_CASE);
 			}
 		}

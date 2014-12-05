@@ -18,7 +18,6 @@ io.sockets.on('connection', function(socket) {
 	console.log('Client connected !');
 
 	socket.on('message', function (message) {
-		console.log(message);
 		var msgCut = message.split(' ');
 
 		switch(msgCut[0]) {
@@ -38,7 +37,7 @@ io.sockets.on('connection', function(socket) {
 				
 				break;
 			default:
-				console.log('Unknow message : '+msgCut[0]);
+				/*console.log('Unknow message : '+msgCut[0]);*/
 		}
 
 		socket.on('disconnect', function() {

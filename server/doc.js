@@ -1,5 +1,5 @@
 function Doc() {
-  this.nbSeringue = 0;
+  this.nbSeringue = 5;
   this.x = 5;
   this.y = 5;
   this.score = 0;
