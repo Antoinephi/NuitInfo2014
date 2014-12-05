@@ -92,7 +92,7 @@ Client.prototype = {
 		console.log("send game");
 	},
 	decreaseTimer: function(clientT) {
-		if(clientT.timer == 0) {
+		if(clientT.timer == 0 || clientT.doctor.nbSeringue == 0) {
 			clientT.socket.emit('message', "GAMEOVER "+clientT.doctor.score);
 		}
 		else {
