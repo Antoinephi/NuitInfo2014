@@ -1,0 +1,44 @@
+body{
+	width:100%;
+	height: 100%;
+}
+
+.display-command{
+	margin: 0 auto;
+	width:256px;
+	height: 256px;
+	background-color: blue;
+}
+
+.display-command#N{
+	background: url("img/arrow-alt-right.png") no-repeat;
+    transform: rotate(270deg);
+    text-align: middle;
+}
+.display-command#E{
+	background: url("img/arrow-alt-right.png") no-repeat;
+}
+.display-command#S{
+	background: url("img/arrow-alt-right.png") no-repeat;
+    transform: rotate(90deg);
+}
+.display-command#W{
+	background: url("img/arrow-alt-right.png") no-repeat;
+    transform: rotate(180deg);
+}
+
+.display-command .a-button{
+	display: inline-block;
+	height: 100%;
+	width: 50%;
+	float:right;
+	background-color: red;
+}
+
+.display-command .b-button{
+	display: inline-block;
+	height: 100%;
+	width: 50%;
+	float:left;
+	background-color:blue;
+}
