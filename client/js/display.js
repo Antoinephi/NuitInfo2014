@@ -101,19 +101,20 @@ function draw () {
 			} else if(board[i][j] == 'D') {
 				context2D.strokeText("D", i * SIZE_CASE, j * SIZE_CASE);
 			} else if(board[i][j] != '0') {
-				console.log(board[i][j]);
 				context2D.strokeText(board[i][j], i * SIZE_CASE, j * SIZE_CASE);
 			}
 		}
 	}
 
 	for (var x = 0 ; x < WIDTH_GAMEBOARD ; x = x + SIZE_CASE) {
+		context2D.beginPath();
 		context2D.moveTo(x,0);
 		context2D.lineTo(x,HEIGHT_GAMEBOARD);
 		context2D.stroke();
 	}
 
 	for (var y = 0 ; y < HEIGHT_GAMEBOARD ; y = y + SIZE_CASE) {
+		context2D.beginPath();
 		context2D.moveTo(0,y);
 		context2D.lineTo(WIDTH_GAMEBOARD,y);
 		context2D.stroke();
